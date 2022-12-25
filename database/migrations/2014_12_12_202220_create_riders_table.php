@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('riders', function (Blueprint $table) {
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
@@ -23,12 +23,12 @@ return new class extends Migration
             $table->string('profile_bg')->nullable();
             $table->boolean('active_status')->default(true);
             $table->boolean('verified')->default(true);
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('referalcode')->nullable();
             $table->string('registrationtoken')->nullable();
             $table->string('device_name')->nullable();
-            $table->rememberToken();
+            $table->bigInteger('city_id')->unsigned();
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->timestamps();
         });
     }
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('riders');
     }
 };
